@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Tachmyrat Haytyyev - Flutter & Python Developer">
+    <title>Tachmyrat Haytyyev | Flutter & Python Developer</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #22d3ee;
+            --accent-dark: #0891b2;
+            --accent-glow: rgba(34, 211, 238, 0.3);
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #0f172a;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-outline:hover {
+            background: rgba(34, 211, 238, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Background Animation */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+            border-radius: 50%;
+            animation: move 20s infinite alternate;
+            filter: blur(80px);
+        }
+
+        .blob:nth-child(1) {
+            top: -100px;
+            left: -100px;
+        }
+
+        .blob:nth-child(2) {
+            bottom: -100px;
+            right: -100px;
+            animation-delay: -10s;
+        }
+
+        .blob:nth-child(3) {
+            top: 40%;
+            left: 40%;
+            width: 300px;
+            height: 300px;
+            animation-duration: 30s;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, rgba(15, 23, 42, 0) 70%);
+        }
+
+        @keyframes move {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(100px, 50px) scale(1.1);
+            }
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            padding: 1rem 0;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-secondary);
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 1rem;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            padding: 2px 5px;
+        }
+
+        .lang-btn:hover,
+        .lang-btn.active {
+            color: var(--accent);
+        }
+
+        .divider {
+            color: var(--glass-border);
+            font-size: 0.8rem;
+        }
+
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .typewriter {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-family: 'Fira Code', monospace;
+            margin-bottom: 2rem;
+            min-height: 1.8rem;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translate(-50%, 0);
+            }
+
+            40% {
+                transform: translate(-50%, -10px);
+            }
+
+            60% {
+                transform: translate(-50%, -5px);
+            }
+        }
+
+        /* About Section */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+                align-items: center;
+            }
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-glow);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-subtitle {
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            background: rgba(30, 41, 59, 0.9);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            border-color: var(--accent-glow);
+        }
+
+        .project-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            font-size: 0.95rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(34, 211, 238, 0.1);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-links a {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .project-links a:hover {
+            color: var(--accent);
+        }
+
+        .btn-live-demo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            border: 1px solid var(--accent);
+            padding: 4px 10px;
+            border-radius: 4px;
+            color: var(--accent);
+            transition: var(--transition);
+        }
+
+        .btn-live-demo:hover {
+            background: var(--accent);
+            color: #0f172a !important;
+        }
+
+        /* Education & Languages */
+        .edu-card {
+            border-left: 3px solid var(--accent);
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .edu-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .edu-school {
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .edu-year {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .lang-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .lang-badge {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-badge i {
+            color: var(--accent);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            text-align: center;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(34, 211, 238, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent);
+            transition: var(--transition);
+        }
+
+        .contact-item:hover .contact-icon {
+            background: var(--accent);
+            color: #0f172a;
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--glass-border);
+            font-size: 0.9rem;
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="blob"></div>
+        <div class="blob"></div>
+        <div class="blob"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">&lt;Tachmyrat /&gt;</a>
+            <ul class="nav-links">
+                <li><a href="#about" class="nav-link" data-i18n="nav.about">About</a></li>
+                <li><a href="#skills" class="nav-link" data-i18n="nav.skills">Skills</a></li>
+                <li><a href="#projects" class="nav-link" data-i18n="nav.projects">Projects</a></li>
+                <li><a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+                <li class="lang-switcher">
+                    <button onclick="changeLang('en')" class="lang-btn active">EN</button>
+                    <span class="divider">|</span>
+                    <button onclick="changeLang('tm')" class="lang-btn">TM</button>
+                    <span class="divider">|</span>
+                    <button onclick="changeLang('ru')" class="lang-btn">RU</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="hero">
+        <div class="container hero-content reveal">
+            <h1 class="hero-title">Hi, I'm <span class="gradient-text">Tachmyrat</span></h1>
+            <div class="typewriter" id="typewriter"></div>
+            <p class="tagline">Building scalable mobile & web applications with modern technologies. Passionate about
+                clean code and user-centric design.</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-outline">Contact Me</a>
+            </div>
+        </div>
+        <a href="#about" class="scroll-down">
+            <i class="fa-solid fa-chevron-down"></i>
+        </a>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-subtitle">Introduction</span>
+                <h2 class="section-title">About Me</h2>
+            </div>
+
+            <div class="glass-card reveal">
+                <p style="font-size: 1.1rem; color: #cbd5e1;">
+                    I am a 4th-year student at the Institute of Telecommunications and Informatics of Turkmenistan,
+                    deeply passionate about software engineering.
+                    <br><br>
+                    My expertise lies in building cross-platform mobile applications with <strong
+                        style="color: var(--accent)">Flutter</strong> and robust backends with <strong
+                        style="color: var(--accent)">Django</strong> (Python).
+                    I focus on creating real-world solutions that combine performance with exceptional user experience.
+                    I am an active contributor on GitHub and always eager to learn new technologies to stay ahead in the
+                    rapidly evolving tech landscape.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section-padding">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-subtitle">My Toolbox</span>
+                <h2 class="section-title">Technical Skills</h2>
+            </div>
+
+            <div class="skills-grid reveal">
+                <!-- Dart/Flutter -->
+                <div class="skill-card">
+                    <i class="fa-brands fa-flutter skill-icon"></i>
+                    <h3 class="skill-name">Flutter & Dart</h3>
+                </div>
+                <!-- Python/Django -->
+                <div class="skill-card">
+                    <i class="fa-brands fa-python skill-icon"></i>
+                    <h3 class="skill-name">Python & Django</h3>
+                </div>
+                <!-- HTML/CSS/JS -->
+                <div class="skill-card">
+                    <i class="fa-brands fa-js skill-icon"></i>
+                    <h3 class="skill-name">Web Core</h3>
+                </div>
+                <!-- REST APIs -->
+                <div class="skill-card">
+                    <i class="fa-solid fa-cloud skill-icon"></i>
+                    <h3 class="skill-name">REST APIs</h3>
+                </div>
+                <!-- Git/GitHub -->
+                <div class="skill-card">
+                    <i class="fa-brands fa-github skill-icon"></i>
+                    <h3 class="skill-name">Git & GitHub</h3>
+                </div>
+                <!-- SQLite -->
+                <div class="skill-card">
+                    <i class="fa-solid fa-database skill-icon"></i>
+                    <h3 class="skill-name">SQLite</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section-padding">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-subtitle">Portfolio</span>
+                <h2 class="section-title">Featured Projects</h2>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1: Relay Configurator -->
+                <article class="project-card reveal">
+                    <div class="project-image">
+                        <img src="./assets/images/project_relay.jpg" alt="Relay Configurator App"
+                            style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--glass-border);">
+                    </div>
+                    <div class="project-content">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <h3 class="project-title">VPS Relay Configurator</h3>
+                            <span
+                                style="font-size: 0.7rem; background: var(--accent); color: #0f172a; padding: 2px 8px; border-radius: 4px; font-weight: 700;">UI
+                                DEMO</span>
+                        </div>
+                        <p class="project-desc">
+                            Automated tool for configuring VPS relays (V2Ray/SS). Features SSH integration, Gitee sync,
+                            and a clean dark-mode UI for managing server configurations.
+                            <br><em style="font-size: 0.85rem; color: var(--accent); opacity: 0.8;">* Frontend
+                                implementation / Backend in progress</em>
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Dart</span>
+                            <span class="tech-tag">SSH</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Tacmyrat02" target="_blank" title="View Source"><i
+                                    class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2: Flight Booking -->
+                <article class="project-card reveal">
+                    <div class="project-image">
+                        <img src="./assets/images/project_flight.jpg" alt="Flight Booking App"
+                            style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--glass-border);">
+                    </div>
+                    <div class="project-content">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <h3 class="project-title">Flight Booking App</h3>
+                            <span
+                                style="font-size: 0.7rem; background: var(--accent); color: #0f172a; padding: 2px 8px; border-radius: 4px; font-weight: 700;">UI
+                                DEMO</span>
+                        </div>
+                        <p class="project-desc">
+                            A modern, card-based flight booking interface. Showcases ticket visualization, itinerary
+                            details (Ashgabat ↔ Lebap), and a polished user experience.
+                            <br><em style="font-size: 0.85rem; color: var(--accent); opacity: 0.8;">* Frontend
+                                implementation / Backend in progress</em>
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Dart</span>
+                            <span class="tech-tag">UI/UX</span>
+                        </div>
+                        <div class="project-links" style="display: flex; gap: 1rem;">
+                            <a href="https://github.com/Tacmyrat02" target="_blank" title="View Source"><i
+                                    class="fa-brands fa-github"></i></a>
+                            <a href="https://Tacmyrat02.github.io" target="_blank" class="btn-live-demo"
+                                title="Live Demo (Static)">
+                                <i class="fa-solid fa-external-link-alt"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3: Sanly Shop (TMCars) -->
+                <article class="project-card reveal">
+                    <div class="project-image">
+                        <img src="./assets/images/project_tmcars.png" alt="Sanly Shop AI Store"
+                            style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--glass-border);">
+                    </div>
+                    <div class="project-content">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <h3 class="project-title">Sanly Shop (AI Store)</h3>
+                            <span
+                                style="font-size: 0.7rem; background: var(--accent); color: #0f172a; padding: 2px 8px; border-radius: 4px; font-weight: 700;">DJANGO</span>
+                        </div>
+                        <p class="project-desc">
+                            Elite AI-powered e-commerce platform featuring image search (EfficientNet-B7) and real-time
+                            WebSockets. "TMCars" repo transformed into a high-end tech store.
+                            <br><em style="font-size: 0.85rem; color: var(--accent); opacity: 0.8;">* Frontend Ready /
+                                Backend: Channels & Redis</em>
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Django 5.1</span>
+                            <span class="tech-tag">PyTorch</span>
+                            <span class="tech-tag">Channels</span>
+                        </div>
+                        <div class="project-links" style="display: flex; gap: 1rem;">
+                            <a href="https://github.com/Tacmyrat02/tmcars" target="_blank" title="View Source"><i
+                                    class="fa-brands fa-github"></i></a>
+                            <a href="https://tachmyrat.github.io/" target="_blank" class="btn-live-demo"
+                                title="Live Demo (Static)">
+                                <i class="fa-solid fa-external-link-alt"></i> Live Demo
+                            </a>
+                        </div>
+                        <p
+                            style="font-size: 0.8rem; color: #fbbf24; margin-top: 0.8rem; background: rgba(251, 191, 36, 0.1); padding: 8px; border-radius: 6px; border-left: 2px solid #fbbf24;">
+                            <i class="fa-solid fa-triangle-exclamation"></i> <strong>Note:</strong> Live demo is a
+                            static frontend snapshot served via GitHub Pages. Backend features (AI search, redirects)
+                            will return 404/errors as they require the Django server.
+                        </p>
+                    </div>
+                </article>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Languages -->
+    <section class="section-padding" style="background: rgba(30, 41, 59, 0.4);">
+        <div class="container">
+            <div class="grid-layout">
+                <!-- Education -->
+                <div class="reveal">
+                    <h3 class="section-title" style="font-size: 1.8rem; margin-bottom: 2rem;">Education</h3>
+                    <div class="edu-card">
+                        <span class="edu-school">Institute of Telecommunications and Informatics of Turkmenistan</span>
+                        <h4 class="edu-title">Student</h4>
+                        <span class="edu-year">4th Year • Current</span>
+                    </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="reveal">
+                    <h3 class="section-title" style="font-size: 1.8rem; margin-bottom: 2rem;">Languages</h3>
+                    <div class="lang-badges">
+                        <div class="lang-badge">
+                            <i class="fa-solid fa-earth-asia"></i> Turkmen (Native)
+                        </div>
+                        <div class="lang-badge">
+                            <i class="fa-solid fa-earth-americas"></i> English (Advanced)
+                        </div>
+                        <div class="lang-badge">
+                            <i class="fa-solid fa-earth-europe"></i> Russian (Advanced)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding">
+        <div class="container reveal">
+            <div class="contact-container">
+                <span class="section-subtitle">Get In Touch</span>
+                <h2 class="section-title">Let's Work Together</h2>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 1rem auto;">
+                    I'm currently available for freelance work and internship opportunities.
+                    Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                </p>
+
+                <div class="contact-links">
+                    <a href="mailto:tacmurat02@gmail.com" class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <span>tacmurat02@gmail.com</span>
+                    </a>
+                    <a href="https://github.com/Tacmyrat02" target="_blank" class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fa-brands fa-github"></i>
+                        </div>
+                        <span>Tacmyrat02</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Tachmyrat Haytyyev. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sticky Navbar
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Typing Effect
+        const text = "Flutter • Django • Mobile • Web";
+        const typewriterElement = document.getElementById('typewriter');
+        let index = 0;
+
+        function type() {
+            if (index < text.length) {
+                typewriterElement.textContent += text.charAt(index);
+                index++;
+                setTimeout(type, 100);
+            }
+        }
+
+        // Start typing after a short delay
+        setTimeout(type, 500);
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        function checkReveal() {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 150;
+
+            revealElements.forEach((element) => {
+                const elementTop = element.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkReveal);
+
+        // Trigger once on load
+        checkReveal();
+
+        // Active Link Highlighting
+        const sections = document.querySelectorAll('section, header');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(li => {
+                li.classList.remove('active');
+                if (li.getAttribute('href').includes(current)) {
+                    li.classList.add('active');
+                }
+            });
+        });
+
+        // Language Switcher Logic
+        const translations = {
+            en: {
+                nav: { about: "About", skills: "Skills", projects: "Projects", contact: "Contact" },
+                hero: { greeting: "Hi, I'm", tagline: "Building scalable mobile & web applications with modern technologies. Passionate about clean code and user-centric design.", btn_projects: "View Projects", btn_contact: "Contact Me" },
+                about: { subtitle: "Introduction", title: "About Me", text: "I am a 4th-year student at the Institute of Telecommunications and Informatics of Turkmenistan, deeply passionate about software engineering. <br><br> My expertise lies in building cross-platform mobile applications with <strong style='color: var(--accent)'>Flutter</strong> and robust backends with <strong style='color: var(--accent)'>Django</strong> (Python). I focus on creating real-world solutions that combine performance with exceptional user experience. I am an active contributor on GitHub and always eager to learn new technologies to stay ahead in the rapidly evolving tech landscape." },
+                skills: { subtitle: "My Toolbox", title: "Technical Skills", web: "Web Core" },
+                projects: { subtitle: "Portfolio", title: "Featured Projects", demo: "UI DEMO", live: "Live Demo", view_source: "View Source", relay_desc: "Automated tool for configuring VPS relays (V2Ray/SS). Features SSH integration, Gitee sync, and a clean dark-mode UI for managing server configurations.<br><em style='font-size: 0.85rem; color: var(--accent); opacity: 0.8;'>* Frontend implementation / Backend in progress</em>", flight_desc: "A modern, card-based flight booking interface. Showcases ticket visualization, itinerary details (Ashgabat ↔ Lebap), and a polished user experience.<br><em style='font-size: 0.85rem; color: var(--accent); opacity: 0.8;'>* Frontend implementation / Backend in progress</em>", tmcars_desc: "Elite AI-powered e-commerce platform featuring image search (EfficientNet-B7) and real-time WebSockets. 'TMCars' repo transformed into a high-end tech store.<br><em style='font-size: 0.85rem; color: var(--accent); opacity: 0.8;'>* Frontend Ready / Backend: Channels & Redis</em>", tmcars_note: "<i class='fa-solid fa-triangle-exclamation'></i> <strong>Note:</strong> Live demo is a static frontend snapshot served via GitHub Pages. Backend features (AI search, redirects) will return 404/errors as they require the Django server." },
+                education: { title: "Education", role: "Student", year: "4th Year • Current", institute: "Institute of Telecommunications and Informatics of Turkmenistan" },
+                languages: { title: "Languages", tm: "Turkmen (Native)", en: "English (Advanced)", ru: "Russian (Advanced)" },
+                contact: { subtitle: "Get In Touch", title: "Let's Work Together", text: "I'm currently available for freelance work and internship opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!" },
+                footer: "© 2026 Tachmyrat Haytyyev. All Rights Reserved."
+            },
+            tm: {
+                nav: { about: "Men Barada", skills: "Ukyp-başarnyklar", projects: "Taslamalar", contact: "Habarlaşmak" },
+                hero: { greeting: "Salam, men", tagline: "Döwrebap tehnologiýalar bilen ykjam we web programmalary döredýärin. Arassa kod we ulanyjy üçin amatly dizaýn döretmäge höwesli.", btn_projects: "Taslamalary Gör", btn_contact: "Habarlaş" },
+                about: { subtitle: "Tanyşlyk", title: "Men Barada", text: "Men Türkmenistanyň Telekommunikasiýalar we informatika institutynyň 4-nji ýyl talyby we programma üpjünçiligi inženeri bolmaga höwesli. <br><br> Meniň esasy ugurlarym <strong style='color: var(--accent)'>Flutter</strong> bilen ykjam programmalar we <strong style='color: var(--accent)'>Django</strong> (Python) bilen güýçli bekendleri döretmekdir. Men önümçilik we ulanyjy tejribesini birleşdirýän hakyky çözgütleri döretmäge üns berýärin. GitHub-da işjeň gatnaşyjy we tehnologiýa dünýäsindäki täzelikleri öwrenmäge mydama taýyn." },
+                skills: { subtitle: "Gural toplumym", title: "Tehniki Başarnyklar", web: "Web Esaslary" },
+                projects: { subtitle: "Portfolio", title: "Saýlanan Taslamalar", demo: "UI DEMO", live: "Göni Ýaýlym", view_source: "Koda seret", relay_desc: "VPS relay (V2Ray/SS) sazlamalary üçin awtomatlaşdyrylan gural. SSH integrasiýasy, Gitee sinhronizasiýasy we serverleri dolandyrmak üçin arassa gara dizaýn.<br><em style='font-size: 0.85rem; color: var(--accent); opacity: 0.8;'>* Frontend taýyn / Backend işlenilýär</em>", flight_desc: "Döwrebap, kart görnüşli uçuş peteklerini sargyt etmek interfeýsi. Petek wizualizasiýasy, ugur jikme-jiklikleri (Aşgabat ↔ Lebap) we ýokary hilli ulanyjy tejribesi.<br><em style='font-size: 0.85rem; color: var(--accent); opacity: 0.8;'>* Frontend taýyn / Backend işlenilýär</em>", tmcars_desc: "Beýik derejeli AI e- söwda platformasy (EfficientNet-B7 surat gözleg) we hakyky wagtlaýyn WebSockets. 'TMCars' repo ýokary derejeli tehnika dükanyna öwrüldi.<br><em style='font-size: 0.85rem; color: var(--accent); opacity: 0.8;'>* Frontend Taýyn / Backend: Channels & Redis</em>", tmcars_note: "<i class='fa-solid fa-triangle-exclamation'></i> <strong>Bellik:</strong> Göni ýaýlym GitHub Pages arkaly statik görnüşde. Backend aýratynlyklary (AI gözleg, gönükdirmeler) Django serweri talap edýändigi üçin işlemän biler." },
+                education: { title: "Bilim", role: "Talyp", year: "4-nji ýyl • Häzirki", institute: "Türkmenistanyň Telekommunikasiýalar we informatika instituty" },
+                languages: { title: "Diller", tm: "Türkmen (Ene dili)", en: "Iňlis (Ýokary)", ru: "Rus (Ýokary)" },
+                contact: { subtitle: "Habarlaşmak", title: "Bilelikde Işleşeliň", text: "Häzirki wagtda frilans we tejribe geçmek üçin açyk. Soraglaryňyz bar bolsa ýa-da salam bermek isleseňiz, men size jogap bermäge şat bolaryn!" },
+                footer: "© 2026 Tachmyrat Haytyyev. Ähli hukuklar goralan."
+            },
+            ru: {
+                nav: { about: "Обо мне", skills: "Навыки", projects: "Проекты", contact: "Контакты" },
+                hero: { greeting: "Привет, я", tagline: "Создаю масштабируемые мобильные и веб-приложения с использованием современных технологий. Увлечен чистым кодом и удобным дизайном.", btn_projects: "Смотреть проекты", btn_contact: "Связаться" },
+                about: { subtitle: "Введение", title: "Обо мне", text: "Я студент 4-го курса Института телекоммуникаций и информатики Туркменистана, глубоко увлеченный разработкой программного обеспечения. <br><br> Моя специализация — создание кроссплатформенных мобильных приложений на <strong style='color: var(--accent)'>Flutter</strong> и надежных бэкендов на <strong style='color: var(--accent)'>Django</strong> (Python). Я создаю реальные решения, сочетающие производительность и исключительный пользовательский опыт. Активный участник GitHub и всегда готов изучать новые технологии." },
+                skills: { subtitle: "Мои инструменты", title: "Технические навыки", web: "Web Core" },
+                projects: { subtitle: "Портфолио", title: "Избранные проекты", demo: "UI ДЕМО", live: "Демонстрация", view_source: "Исходик", relay_desc: "Инструмент для автоматической настройки VPS relay (V2Ray/SS). Интеграция SSH, синхронизация Gitee и чистый темный интерфейс.<br><em style='font-size: 0.85rem; color: var(--accent); opacity: 0.8;'>* Frontend готов / Backend в разработке</em>", flight_desc: "Современный интерфейс бронирования авиабилетов. Визуализация билетов, детали маршрута (Ашхабад ↔ Лебап) и продуманный UX.<br><em style='font-size: 0.85rem; color: var(--accent); opacity: 0.8;'>* Frontend готов / Backend в разработке</em>", tmcars_desc: "Элитная AI платформа электронной коммерции с поиском по изображениям (EfficientNet-B7) и WebSockets. Репозиторий 'TMCars', превращенный в технологичный магазин.<br><em style='font-size: 0.85rem; color: var(--accent); opacity: 0.8;'>* Frontend Готов / Backend: Channels & Redis</em>", tmcars_note: "<i class='fa-solid fa-triangle-exclamation'></i> <strong>Примечание:</strong> Демо — это статическая версия на GitHub Pages. Функции бэкенда (AI поиск) могут выдавать ошибки, так как требуют Django сервер." },
+                education: { title: "Образование", role: "Студент", year: "4-й курс • Текущее", institute: "Институт телекоммуникаций и информатики Туркменистана" },
+                languages: { title: "Языки", tm: "Туркменский (Родной)", en: "Английский (Продвинутый)", ru: "Русский (Продвинутый)" },
+                contact: { subtitle: "Контакты", title: "Давайте работать вместе", text: "В настоящее время открыт для фриланса и стажировок. Если у вас есть вопросы или предложение, буду рад ответить!" },
+                footer: "© 2026 Tachmyrat Haytyyev. Все права защищены."
+            }
+        };
+
+        function changeLang(lang) {
+            // Update buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.lang-btn[onclick="changeLang('${lang}')"]`).classList.add('active');
+
+            const t = translations[lang];
+
+            // Nav
+            document.querySelector('[data-i18n="nav.about"]').textContent = t.nav.about;
+            document.querySelector('[data-i18n="nav.skills"]').textContent = t.nav.skills;
+            document.querySelector('[data-i18n="nav.projects"]').textContent = t.nav.projects;
+            document.querySelector('[data-i18n="nav.contact"]').textContent = t.nav.contact;
+
+            // Hero
+            // Careful with nested spans in greeting
+            const heroTitle = document.querySelector('.hero-title');
+            heroTitle.innerHTML = `${t.hero.greeting} <span class="gradient-text">Tachmyrat</span>`;
+            document.querySelector('.tagline').textContent = t.hero.tagline;
+            document.querySelector('.btn-primary').textContent = t.hero.btn_projects;
+            document.querySelector('.btn-outline').textContent = t.hero.btn_contact;
+
+            // About
+            document.querySelector('#about .section-subtitle').textContent = t.about.subtitle;
+            document.querySelector('#about .section-title').textContent = t.about.title;
+            document.querySelector('#about p').innerHTML = t.about.text;
+
+            // Skills
+            document.querySelector('#skills .section-subtitle').textContent = t.skills.subtitle;
+            document.querySelector('#skills .section-title').textContent = t.skills.title;
+            // Only translating Web Core as others are proper nouns
+            const skillCards = document.querySelectorAll('.skill-name');
+            skillCards.forEach(card => {
+                if (card.textContent === 'Web Core' || card.textContent === 'Web Esaslary') card.textContent = t.skills.web;
+            });
+
+            // Projects
+            document.querySelector('#projects .section-subtitle').textContent = t.projects.subtitle;
+            document.querySelector('#projects .section-title').textContent = t.projects.title;
+
+            // Project Cards
+            const projectDescs = document.querySelectorAll('.project-desc');
+            const demoBadges = document.querySelectorAll('span[style*="font-size: 0.7rem"]');
+
+            // Reset to EN text for matching indices if needed, but here we hardcode positions for simplicity
+            // Index 0: Relay
+            demoBadges[0].textContent = t.projects.demo;
+            projectDescs[0].innerHTML = t.projects.relay_desc;
+
+            // Index 1: Flight
+            demoBadges[1].textContent = t.projects.demo;
+            projectDescs[1].innerHTML = t.projects.flight_desc;
+
+            // Index 2: TMCars
+            // demoBadges[2] is DJANGO, keep as is
+            projectDescs[2].innerHTML = t.projects.tmcars_desc;
+
+            const liveBtn = document.querySelector('.btn-live-demo');
+            if (liveBtn) liveBtn.innerHTML = `<i class="fa-solid fa-external-link-alt"></i> ${t.projects.live}`;
+
+            const note = document.querySelector('p[style*="border-left: 2px solid #fbbf24"]');
+            if (note) note.innerHTML = t.projects.tmcars_note;
+
+            // Education
+            const eduSection = document.querySelector('.section-padding[style*="background: rgba(30, 41, 59, 0.4)"]');
+            eduSection.querySelector('.section-title').textContent = t.education.title;
+            // institute link text handling
+            const instituteLink = eduSection.querySelector('.edu-school');
+            instituteLink.innerHTML = `${t.education.institute} <i class="fa-solid fa-external-link-alt" style="font-size: 0.8em;"></i>`;
+
+            eduSection.querySelector('.edu-title').textContent = t.education.role;
+            eduSection.querySelector('.edu-year').textContent = t.education.year;
+
+            // Languages
+            const langSection = eduSection.querySelectorAll('.reveal')[1];
+            langSection.querySelector('.section-title').textContent = t.languages.title;
+            const badges = langSection.querySelectorAll('.lang-badge');
+            badges[0].innerHTML = `<i class="fa-solid fa-earth-asia"></i> ${t.languages.tm}`;
+            badges[1].innerHTML = `<i class="fa-solid fa-earth-americas"></i> ${t.languages.en}`;
+            badges[2].innerHTML = `<i class="fa-solid fa-earth-europe"></i> ${t.languages.ru}`;
+
+            // Contact
+            document.querySelector('#contact .section-subtitle').textContent = t.contact.subtitle;
+            document.querySelector('#contact .section-title').textContent = t.contact.title;
+            document.querySelector('#contact p').textContent = t.contact.text;
+
+            // Footer
+            document.querySelector('footer p').innerHTML = t.footer;
+        }
+    </script>
+</body>
+
+</html>
